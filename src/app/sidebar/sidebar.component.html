@@ -10,48 +10,23 @@
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li routerLink="dashboard" [routerLinkActive]="['active']">
+                <ul class="nav nav-list" *ngFor="let menu of MenuItems">
+                    <li *ngIf="menu.url != ''" routerLink="{{menu.url}}" [routerLinkActive]="['active']">
                         <a href="javascript:void(0)">
-                            <i class="material-icons">dashboard</i>
-                            <p>Dashboard</p>
+                            <i class="material-icons">{{menu.icon}}</i>
+                            <p>{{menu.name}}</p>
                         </a>
-                    </li>
-                    <li>
-                        <a href="./user.html">
-                            <i class="material-icons">person</i>
-                            <p>User Profile</p>
+                    </li> 
+                    <li *ngIf="menu.url == ''">
+                        <a class="accordion-heading" data-toggle="collapse" [attr.data-target]="'#submenu' + menu.id">
+                            <span class="nav-header-primary"><i class="material-icons">{{menu.icon}}</i>{{menu.name}} <span class="pull-right"><b class="caret"></b></span></span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="./table.html">
-                            <i class="material-icons">content_paste</i>
-                            <p>Table List</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./typography.html">
-                            <i class="material-icons">library_books</i>
-                            <p>Typography</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./icons.html">
-                            <i class="material-icons">bubble_chart</i>
-                            <p>Icons</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./maps.html">
-                            <i class="material-icons">location_on</i>
-                            <p>Maps</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./notifications.html">
-                            <i class="material-icons text-gray">notifications</i>
-                            <p>Notifications</p>
-                        </a>
+
+                        <ul class="nav nav-list collapse" id="submenu{{menu.id}}">
+                            <li *ngFor="let submenu of menu.children" routerLink="{{submenu.url}}" [routerLinkActive]="['active']">
+                                <a href="javascript:void(0)" title="Title">{{submenu.name}}</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
